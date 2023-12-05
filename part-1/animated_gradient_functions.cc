@@ -10,19 +10,20 @@
 
 bool HasMatchingFileExtension(const std::string& file_name,
                               const std::string& extension) {
-  if (file_name.length() >= extension.length()) {
-    return (file_name.compare(file_name.length() - extension.length(),
-                              extension.length(), extension) == 0);
+  if (file_name.length() >= extension.length() &&
+      (file_name.compare((file_name.length() - extension.length()),
+                         extension.length(), extension) == 0)) {
+    return true;
   }
   return false;
 }
 
 std::vector<double> BuildSineLookupTable(int image_width) {
   std::vector<double> lookup_table;
-  double angle_step = M_PI / image_width;
-  for (int i = 0; i < image_width; ++i) {
-    double angle = angle_step * i;
-    lookup_table.push_back(std::sin(angle));
+  double radian_step = M_PI / image_width;
+  for (int column = 0; column < image_width; column++) {
+    double value = sin(radian_step * column);
+    lookup_table.push_back(value);
   }
   return lookup_table;
 }
